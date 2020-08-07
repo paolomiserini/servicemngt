@@ -47,7 +47,7 @@ namespace ServiceManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Surname,Patronimic,Telephone,CompanyType,CompanyName,ContactPerson,ExtraInfo")] Client client)
+        public ActionResult Create([Bind(Include = "ID,ClientType,Name,Surname,Patronimic,Telephone,CompanyType,CompanyName,ContactPerson,ExtraInfo")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace ServiceManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Surname,Patronimic,Telephone,CompanyType,CompanyName,ContactPerson,ExtraInfo")] Client client)
+        public ActionResult Edit([Bind(Include = "ID,ClientType,Name,Surname,Patronimic,Telephone,CompanyType,CompanyName,ContactPerson,ExtraInfo")] Client client)
         {
             if (ModelState.IsValid)
             {
