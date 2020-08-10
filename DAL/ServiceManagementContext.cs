@@ -21,6 +21,8 @@ namespace ServiceManagement.DAL
         public DbSet<CompanyType> CompanyTypes { get; set; }
         public DbSet<ClientAddress> ClientAddresses { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

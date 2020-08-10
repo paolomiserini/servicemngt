@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<ServiceManagement.Models.Tecnician>
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+<h3>Мастера</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(" ", "Create", "Tecnician", null, new { @class = "btn btn-primary fa fa-plus" })
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -41,9 +39,9 @@
             @Html.DisplayFor(modelItem => item.Telephone)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
+            <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.ID })" title="Детали"><i class="fa fa-eye"></i></a>
+            <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
         </td>
     </tr>
 }

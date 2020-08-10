@@ -11,7 +11,7 @@ using ServiceManagement.Models;
 
 namespace ServiceManagement.Controllers
 {
-    public class TecnicianController : Controller
+    public class TecnicianController : AuthenticationController
     {
         private ServiceManagementContext db = new ServiceManagementContext();
 
@@ -102,6 +102,10 @@ namespace ServiceManagement.Controllers
             {
                 return HttpNotFound();
             }
+
+            TempData["ErrorType"] = Common.INFORMATION;
+            TempData["GenericError"] = Common.StringFromResource.Translation("MsgDeleteGeneric");
+
             return View(tecnician);
         }
 
@@ -113,6 +117,10 @@ namespace ServiceManagement.Controllers
             Tecnician tecnician = db.Tecnicians.Find(id);
             db.Tecnicians.Remove(tecnician);
             db.SaveChanges();
+
+            TempData["ErrorType"] = Common.INFORMATION;
+            TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
             return RedirectToAction("Index");
         }
 

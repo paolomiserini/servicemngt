@@ -1,0 +1,19 @@
+﻿@model ServiceManagement.Models.Log
+
+<h3>Удалить Журнал</h3>
+
+<div>
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-offset-0 col-md-5">
+                <input type="submit" value="Удалить" class="btn btn-primary" />
+                @Html.ActionLink("Вернуться к списку", "Index", "Logs", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
+    }
+</div>

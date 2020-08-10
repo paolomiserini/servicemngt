@@ -6,41 +6,95 @@
     <title>@ViewBag.Title - Сервисный центр - ООО Стройсантехсервис, Геленджик</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-</head>
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg bg-light">
         <div class="container">
-            @Html.ActionLink("Сервисный центр", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <div class="navbar-collapse collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Эксплуатация", "Index", "RemontCard", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Управление данными
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @Html.ActionLink("Клиенты", "Index", "Client", new { area = "" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Торгующие организации", "Index", "Organizations", new { area = "" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Мастера", "Index", "Tecnician", new { area = "" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Детали", "Index", "Sparepart", new { area = "" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Изделии", "Index", "ClientProduct", new { area = "" }, new { @class = "dropdown-item" })
-                        </div>
-                    </li>
-                </ul>
+
+            <div class="navbar-brand mr-auto">
+                <img src="~/Images/logo.png" height="50" width="50" />
+                <small>Service Management System</small>
             </div>
+            @if (((Session["CurrentSession"] as ServiceManagement.Session.TypedSession) ?? new ServiceManagement.Session.TypedSession()).LoggedUser != null)
+            {
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a><span class="fa fa-user fa-2x"></span>&#160;@Html.Raw((Session["CurrentSession"] as ServiceManagement.Session.TypedSession).LoggedUser.Username)&#160;</a></li>
+                    <li class="nav-item" role="presentation"><a href="@Url.Action("Logout", "Login")"><span class="fa fa-sign-out fa-2x"></span>&#160;Выход</a></li>
+                </ul>
+
+            }
         </div>
     </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - ООО Стройсантехсервис, Геленджик</p>
-        </footer>
-    </div>
+    @if (((Session["CurrentSession"] as ServiceManagement.Session.TypedSession) ?? new ServiceManagement.Session.TypedSession()).LoggedUser != null)
+    {
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                @Html.ActionLink("Сервисный центр", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">@Html.ActionLink("About", "About", "Home", new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Эксплуатация", "Index", "RemontCard", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Управление данными
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Клиенты", "Index", "Client", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Торгующие организации", "Index", "Organizations", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Мастера", "Index", "Tecnician", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Детали", "Index", "Sparepart", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Изделии", "Index", "ClientProduct", new { area = "" }, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Технические данные
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @Html.ActionLink("Журнал", "Index", "Logs", new { area = "" }, new { @class = "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    }
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        <div class="container body-content">
+            @if (TempData["GenericError"] != null)
+            {
+                if (TempData["ErrorType"].ToString() == Common.INFORMATION)
+                {
+                    <div class="alert alert-info" role="alert">
+                        @Html.Raw(TempData["GenericError"])
+                    </div>
+                }
+                if (TempData["ErrorType"].ToString() == Common.WARNING)
+                {
+                    <div class="alert alert-warning" role="alert">
+                        @Html.Raw(TempData["GenericError"])
+                    </div>
+                }
+                if (TempData["ErrorType"].ToString() == Common.ERROR)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @Html.Raw(TempData["GenericError"])
+                    </div>
+                }
+            }
+
+            @RenderBody()
+
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - ООО Стройсантехсервис, Геленджик</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

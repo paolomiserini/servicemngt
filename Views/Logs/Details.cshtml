@@ -1,0 +1,64 @@
+﻿@model ServiceManagement.Models.Log
+
+<h3>Подробная информация</h3>
+
+<div>
+    <h4>Журнал</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LogTableName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogTableName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogIdTable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogIdTable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogUsrUpd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogUsrUpd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogDtUpd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogDtUpd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogMessage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogMessage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogType)
+        </dd>
+
+    </dl>
+</div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-5">
+        <a class="btn btn-primary" href="@Url.Action("Index")" title="Вернуться к списку"><i class="fa fa-sign-out fa-2x"></i></a>
+    </div>
+</div>

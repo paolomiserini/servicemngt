@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ServiceManagement.Models.Log>
+
+
+<h3>Журнал</h3>
+
+<p>
+    @Html.ActionLink(" ", "Delete", "Logs", null, new { @class = "btn btn-primary fa fa-trash" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LogTableName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogIdTable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogUsrUpd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogDtUpd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogMessage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LogType)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogTableName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogIdTable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogUsrUpd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogDtUpd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogMessage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogType)
+            </td>
+            <td>
+                <a class="btn btn-primary" href="@Url.Action("Details", new { id = item.id })" title="Деталь"><i class="fa fa-eye"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>

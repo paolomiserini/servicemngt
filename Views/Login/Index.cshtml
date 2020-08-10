@@ -1,0 +1,64 @@
+﻿@model  ServiceManagement.Models.LoginDataInfo
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@if (Model.LoginFailed)
+{
+<div class="alert alert-danger" role="alert">
+    <span class="fa fa-exclamation-circle">&#160;</span>Неверное имя пользователя или пароль
+</div>
+}
+
+@if (Model.UserNotActive)
+{
+<div class="alert alert-danger" role="alert">
+    <span class="fa fa-exclamation-circle">&#160;</span>Пользователь не активен
+</div>
+}
+
+@if (Model.WrongPassword)
+{
+<div class="alert alert-danger" role="alert">
+    <span class="fa fa-exclamation-circle">&#160;</span>Неверный пароль
+</div>
+}
+
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="card">
+            <div class=" card-body">
+                <h5 class="card-title">вход в систему</h5>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-user fa-2x" aria-hidden="true">&nbsp;</span></span>
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @value = Model.Username } })
+                    </div>
+                </div>
+                <div class="form-group has-feedback">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-lock fa-2x" aria-hidden="true">&nbsp;</span></span>
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:DropDownList ID="cmbDomains" CssClass="form-control" runat="server"></asp:DropDownList>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="submit" value="Вход" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}

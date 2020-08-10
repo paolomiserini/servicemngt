@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace ServiceManagement.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AuthenticationController
     {
         public ActionResult Index()
         {
