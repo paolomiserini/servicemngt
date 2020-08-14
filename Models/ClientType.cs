@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ServiceManagement.Models
 {
-    public class CompanyType
+    public class ClientType
     {
         public int ID { get; set; }
         public string TypeDescription { get; set; }

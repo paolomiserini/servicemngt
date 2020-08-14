@@ -88,6 +88,15 @@ namespace ServiceManagement.LocalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Поиск по имени или фамилии.
+        /// </summary>
+        public static string FindByStaff {
+            get {
+                return ResourceManager.GetString("FindByStaff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Обновление данных.
         /// </summary>
         public static string LogDtUpd {

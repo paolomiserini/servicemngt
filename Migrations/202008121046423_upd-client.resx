@@ -117,64 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BadRequest400" xml:space="preserve">
-    <value>Ошибка 400, (Bad Request). Пожалуйста, свяжитесь с вашим администратором.</value>
+  <data name="Target" xml:space="preserve">
+    <value>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</value>
   </data>
-  <data name="BadRequest404" xml:space="preserve">
-    <value>Ошибка 404, Запись Не Найдена. Пожалуйста, свяжитесь с вашим администратором.</value>
-  </data>
-  <data name="DoneOk" xml:space="preserve">
-    <value>Операция прошла успешно!</value>
-  </data>
-  <data name="FindByStaff" xml:space="preserve">
-    <value>Поиск по имени или фамилии</value>
-  </data>
-  <data name="LogDtUpd" xml:space="preserve">
-    <value>Обновление данных</value>
-  </data>
-  <data name="LogIdTable" xml:space="preserve">
-    <value>Идентификатор Таблицы</value>
-  </data>
-  <data name="LogMessage" xml:space="preserve">
-    <value>Сообщение</value>
-  </data>
-  <data name="LogTableName" xml:space="preserve">
-    <value>Имя Таблицы</value>
-  </data>
-  <data name="LogType" xml:space="preserve">
-    <value>Тип Журнала</value>
-  </data>
-  <data name="LogUsrUpd" xml:space="preserve">
-    <value>Пользователь</value>
-  </data>
-  <data name="MandatoryField" xml:space="preserve">
-    <value>Необходимо заполнить</value>
-  </data>
-  <data name="MaxTextFieldLenght" xml:space="preserve">
-    <value>Текст слишком длинный</value>
-  </data>
-  <data name="MsgDeleteGeneric" xml:space="preserve">
-    <value>Вы уверены, что хотите удалить это?</value>
-  </data>
-  <data name="MsgDeleteLog" xml:space="preserve">
-    <value>Вы уверены, что удалите файл журнала?</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Имя</value>
-  </data>
-  <data name="Patronimic" xml:space="preserve">
-    <value>Отчество</value>
-  </data>
-  <data name="Surname" xml:space="preserve">
-    <value>Фамилия </value>
-  </data>
-  <data name="Telephone" xml:space="preserve">
-    <value>Телефон</value>
-  </data>
-  <data name="TelephoneNotValid" xml:space="preserve">
-    <value>Номер телефона не действителен</value>
-  </data>
-  <data name="UserLoggedOut" xml:space="preserve">
-    <value>Пользователь отключен</value>
+  <data name="DefaultSchema" xml:space="preserve">
+    <value>dbo</value>
   </data>
 </root>

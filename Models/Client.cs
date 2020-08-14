@@ -9,8 +9,9 @@ namespace ServiceManagement.Models
     public class Client
     {
         public int ID { get; set; }
+        public int CompanyTypeID { get; set; }
+        public int ClientTypeID { get; set; }
         [StringLength(100, ErrorMessageResourceType = typeof(LocalResource.Resource), ErrorMessageResourceName = "MaxTextFieldLenght")]
-        public string ClientType { get; set; }
         public string Name { get; set; }
         [StringLength(100, ErrorMessageResourceType = typeof(LocalResource.Resource), ErrorMessageResourceName = "MaxTextFieldLenght")]
         public string Surname { get; set; }
@@ -20,7 +21,6 @@ namespace ServiceManagement.Models
         [StringLength(15)]
         [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessageResourceType = typeof(LocalResource.Resource), ErrorMessageResourceName = "TelephoneNotValid")]
         public string Telephone { get; set; }
-        public string CompanyType { get; set; }
         [StringLength(150, ErrorMessageResourceType = typeof(LocalResource.Resource), ErrorMessageResourceName = "MaxTextFieldLenght")]
         public string CompanyName { get; set; }
         public string ContactPerson { get; set; }
@@ -28,6 +28,8 @@ namespace ServiceManagement.Models
         public string ExtraInfo { get; set; }
         public virtual ICollection<RemontCard> RemontCards { get; set; }
         public virtual ICollection<ClientAddress> ClientAddresses { get; set; }
+        public CompanyType CompanyType { get; set; }
+        public ClientType ClientType { get; set; }
 
     }
 }

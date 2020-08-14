@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using ServiceManagement.DAL;
 using ServiceManagement.Models;
 
@@ -16,9 +17,66 @@ namespace ServiceManagement.Controllers
         private ServiceManagementContext db = new ServiceManagementContext();
 
         // GET: Tecnician
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Tecnicians.ToList());
+            // parametro di sort corrente
+            ViewBag.CurrentSort = sortOrder;
+
+            // parametri del sort passati come viewbag
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.SurNameSortParm = String.IsNullOrEmpty(sortOrder) ? "surname_desc" : "";
+
+
+            // codice per paginazione
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            // parametro di filtro corrente
+            ViewBag.CurrentFilter = searchString;
+
+            // accesso al database prelevo lista dati da ordinare o ricercare
+            // la variabile utilizzata e' generica per un copia incolla
+            var items_list = from s in db.Tecnicians select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items_list = items_list.Where(s => s.Name.Contains(searchString)
+                                       || s.Surname.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    items_list = items_list.OrderByDescending(s => s.Name);
+                    break;
+                case "surname_desc":
+                    items_list = items_list.OrderByDescending(s => s.Surname);
+                    break;
+                default:
+                    items_list = items_list.OrderBy(s => s.Name);
+                    break;
+            }
+
+            // Prendo la stringa dalla resource
+            string strTranslated = Common.StringFromResource.Translation("Name");
+            ViewBag.Name = strTranslated;
+
+            strTranslated = Common.StringFromResource.Translation("Surname");
+            ViewBag.Surname = strTranslated;
+
+            strTranslated = Common.StringFromResource.Translation("FindByStaff");
+            ViewBag.FindBy = strTranslated;
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(items_list.ToPagedList(pageNumber, pageSize));
+
         }
 
         // GET: Tecnician/Details/5
@@ -115,7 +173,8 @@ namespace ServiceManagement.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Tecnician tecnician = db.Tecnicians.Find(id);
-            db.Tecnicians.Remove(tecnician);
+            tecnician.IsDeleted = true;
+            //db.Tecnicians.Remove(tecnician);
             db.SaveChanges();
 
             TempData["ErrorType"] = Common.INFORMATION;

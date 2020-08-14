@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ServiceManagement.DAL;
 using ServiceManagement.Models;
 
 namespace ServiceManagement.Controllers
 {
-    public class ClientController : Controller
+    public class ClientController : AuthenticationController
     {
         private ServiceManagementContext db = new ServiceManagementContext();
 
         // GET: Client
         public ActionResult Index()
         {
-            return View(db.Clients.ToList());
+            var clients = db.Clients.Include(c => c.ClientType).Include(c => c.CompanyType);
+            return View(clients.ToList());
         }
 
         // GET: Client/Details/5
@@ -39,6 +36,8 @@ namespace ServiceManagement.Controllers
         // GET: Client/Create
         public ActionResult Create()
         {
+            ViewBag.ClientTypeID = new SelectList(db.ClientTypes, "ID", "TypeDescription");
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "ID", "TypeDescription");
             return View();
         }
 
@@ -47,7 +46,7 @@ namespace ServiceManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClientType,Name,Surname,Patronimic,Telephone,CompanyType,CompanyName,ContactPerson,ExtraInfo")] Client client)
+        public ActionResult Create([Bind(Include = "ID,CompanyTypeID,ClientTypeID,Name,Surname,Patronimic,Telephone,CompanyName,ContactPerson,ExtraInfo")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +55,8 @@ namespace ServiceManagement.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ClientTypeID = new SelectList(db.ClientTypes, "ID", "TypeDescription", client.ClientTypeID);
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "ID", "TypeDescription", client.CompanyTypeID);
             return View(client);
         }
 
@@ -71,6 +72,8 @@ namespace ServiceManagement.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClientTypeID = new SelectList(db.ClientTypes, "ID", "TypeDescription", client.ClientTypeID);
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "ID", "TypeDescription", client.CompanyTypeID);
             return View(client);
         }
 
@@ -79,7 +82,7 @@ namespace ServiceManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ClientType,Name,Surname,Patronimic,Telephone,CompanyType,CompanyName,ContactPerson,ExtraInfo")] Client client)
+        public ActionResult Edit([Bind(Include = "ID,CompanyTypeID,ClientTypeID,Name,Surname,Patronimic,Telephone,CompanyName,ContactPerson,ExtraInfo")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +90,8 @@ namespace ServiceManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ClientTypeID = new SelectList(db.ClientTypes, "ID", "TypeDescription", client.ClientTypeID);
+            ViewBag.CompanyTypeID = new SelectList(db.CompanyTypes, "ID", "TypeDescription", client.CompanyTypeID);
             return View(client);
         }
 

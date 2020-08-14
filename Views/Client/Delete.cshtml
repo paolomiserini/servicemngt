@@ -12,11 +12,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ClientType)
+            @Html.DisplayNameFor(model => model.ClientType.TypeDescription)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ClientType)
+            @Html.DisplayFor(model => model.ClientType.TypeDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyType.TypeDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyType.TypeDescription)
         </dd>
 
         <dt>
@@ -49,14 +57,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Telephone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CompanyType)
         </dd>
 
         <dt>

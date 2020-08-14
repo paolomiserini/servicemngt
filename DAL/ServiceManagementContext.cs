@@ -28,5 +28,7 @@ namespace ServiceManagement.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public System.Data.Entity.DbSet<ServiceManagement.Models.ClientType> ClientTypes { get; set; }
     }
 }

@@ -1,5 +1,5 @@
-﻿@model IEnumerable<ServiceManagement.Models.Tecnician>
-
+﻿@model PagedList.IPagedList<ServiceManagement.Models.Tecnician>
+@using PagedList.Mvc;
 
 <h3>Мастера</h3>
 
@@ -7,43 +7,88 @@
     @Html.ActionLink(" ", "Create", "Tecnician", null, new { @class = "btn btn-primary fa fa-plus" })
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Surname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Patronimic)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telephone)
-        </th>
-        <th></th>
-    </tr>
+@{string name = @ViewBag.Name;}
+@{string surname = @ViewBag.Surname;}
+@{string findby = @ViewBag.FindBy;}
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Patronimic)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telephone)
-        </td>
-        <td>
-            <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
-            <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.ID })" title="Детали"><i class="fa fa-eye"></i></a>
-            <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
-        </td>
-    </tr>
-}
+@{bool firstrecord = true;}
 
-</table>
+
+@using (Html.BeginForm("Index", "Tecnician", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+<div class="form-inline">
+    @findby :&nbsp; @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control form-control-sm" })
+    <input type="submit" value="Поиск" class="btn btn-primary btn-sm" />
+</div>
+    <br />
+    <div>
+        <table class="table table-striped table-sm">
+
+            @foreach (var item in Model)
+            {
+                if (firstrecord)
+                {
+                    <caption>Список мастеров</caption>
+                    <thead>
+                        <tr class="table-active">
+                            <th>
+                                @Html.ActionLink(name, "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink(surname, "Index", new { sortOrder = ViewBag.SurNameSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.Patronimic)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.Telephone)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    firstrecord = false;
+                }
+                <tdata>
+                    @{string _color = "table-default"; }
+
+                    @if (item.IsDeleted)
+                    {
+                        _color = "table-danger";
+                    }
+                    else
+                    {
+                        _color = "table-default";
+                    }
+                    <tr class="@_color">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Surname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Patronimic)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telephone)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.ID })" title="Детали"><i class="fa fa-eye"></i></a>
+                            @if (!item.IsDeleted)
+                            {
+                                <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
+                            }
+                        </td>
+                    </tr>
+                </tdata>
+            }
+
+        </table>
+        <br />
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+    }
