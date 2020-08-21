@@ -27,6 +27,10 @@ namespace ServiceManagement
         public const string WARNING = "WARNING";
         public const string ERROR = "ERROR";
 
+        // Client Type
+        public const string PHISICAL = "PHI";
+        public const string JURIDIC = "YUR";
+
         #endregion
 
         public class StudentsDebts

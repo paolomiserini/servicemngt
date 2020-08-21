@@ -4,75 +4,97 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h3>Посмотреть Клиент</h3>
 
 <div>
-    <h4>Client</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ClientType.TypeDescription)
-        </dt>
+        @if (Model.ClientType.TypeCode == Common.PHISICAL)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.ClientType.TypeDescription)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ClientType.TypeDescription)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ClientType.TypeDescription)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyType.TypeDescription)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CompanyType.TypeDescription)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Patronimic)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Patronimic)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Patronimic)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telephone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Patronimic)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Telephone)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telephone)
-        </dt>
+        }
+        else
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.ClientType.TypeDescription)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telephone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ClientType.TypeDescription)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.CompanyType.TypeDescription)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.CompanyType.TypeDescription)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ContactPerson)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telephone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContactPerson)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Telephone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContactPerson)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContactPerson)
+            </dd>
+        }
+
 
         <dt>
             @Html.DisplayNameFor(model => model.ExtraInfo)
@@ -85,6 +107,13 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(" ", "Edit", "Client", new { id = Model.ID }, new { @class = "btn btn-primary fa fa-edit fa-2x" })
+    @if (Model.ClientType.TypeCode == Common.PHISICAL)
+    {
+        @Html.ActionLink(" ", "Index", "Client", null, new { @class = "btn btn-primary fa fa-sign-out fa-2x" })
+    }
+    else
+    {
+        @Html.ActionLink(" ", "Index_yur", "Client", null, new { @class = "btn btn-primary fa fa-sign-out fa-2x" })
+    }
 </p>

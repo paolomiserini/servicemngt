@@ -182,6 +182,14 @@
     <Compile Include="Migrations\202008121046423_upd-client.designer.cs">
       <DependentUpon>202008121046423_upd-client.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008171415559_client-type-desc.cs" />
+    <Compile Include="Migrations\202008171415559_client-type-desc.designer.cs">
+      <DependentUpon>202008171415559_client-type-desc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008190907349_client-deleted.cs" />
+    <Compile Include="Migrations\202008190907349_client-deleted.designer.cs">
+      <DependentUpon>202008190907349_client-deleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ClientAddress.cs" />
     <Compile Include="Models\Client.cs" />
@@ -373,6 +381,7 @@
     <Content Include="Views\Client\Details.cshtml" />
     <Content Include="Views\Client\Edit.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\Index_yur.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -416,6 +425,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008121046423_upd-client.resx">
       <DependentUpon>202008121046423_upd-client.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008171415559_client-type-desc.resx">
+      <DependentUpon>202008171415559_client-type-desc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008190907349_client-deleted.resx">
+      <DependentUpon>202008190907349_client-deleted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

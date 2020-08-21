@@ -4,11 +4,9 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h3>Удалить Клиента</h3>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Client</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,37 +17,61 @@
             @Html.DisplayFor(model => model.ClientType.TypeDescription)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyType.TypeDescription)
-        </dt>
+        @if (Model.ClientType.TypeCode == Common.PHISICAL)
+        {
 
-        <dd>
-            @Html.DisplayFor(model => model.CompanyType.TypeDescription)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Patronimic)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Patronimic)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Patronimic)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Patronimic)
-        </dd>
+        }
+        else
+        {
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CompanyType.TypeDescription)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyType.TypeDescription)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CompanyName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ContactPerson)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ContactPerson)
+            </dd>
+        }
+
 
         <dt>
             @Html.DisplayNameFor(model => model.Telephone)
@@ -59,21 +81,6 @@
             @Html.DisplayFor(model => model.Telephone)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ContactPerson)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ContactPerson)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.ExtraInfo)
@@ -85,12 +92,22 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-trash fa-2x"></i></button>
+                @if (Model.ClientType.TypeCode == Common.PHISICAL)
+                {
+                    @Html.ActionLink(" ", "Index", "Client", null, new { @class = "btn btn-primary fa fa-sign-out fa-2x" })
+                }
+                else
+                {
+                    @Html.ActionLink(" ", "Index_yur", "Client", null, new { @class = "btn btn-primary fa fa-sign-out fa-2x" })
+                }
+            </div>
         </div>
     }
 </div>

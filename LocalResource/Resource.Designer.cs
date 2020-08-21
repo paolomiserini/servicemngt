@@ -79,11 +79,65 @@ namespace ServiceManagement.LocalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Тип клиента.
+        /// </summary>
+        public static string ClientType {
+            get {
+                return ResourceManager.GetString("ClientType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название.
+        /// </summary>
+        public static string CompanyName {
+            get {
+                return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Форма собственности.
+        /// </summary>
+        public static string CompanyType {
+            get {
+                return ResourceManager.GetString("CompanyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Контактное лицо.
+        /// </summary>
+        public static string ContactPerson {
+            get {
+                return ResourceManager.GetString("ContactPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Операция прошла успешно!.
         /// </summary>
         public static string DoneOk {
             get {
                 return ResourceManager.GetString("DoneOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дополнительная информация.
+        /// </summary>
+        public static string ExtraInfo {
+            get {
+                return ResourceManager.GetString("ExtraInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поиск по названию компании.
+        /// </summary>
+        public static string FindByCompanyName {
+            get {
+                return ResourceManager.GetString("FindByCompanyName", resourceCulture);
             }
         }
         
@@ -183,6 +237,42 @@ namespace ServiceManagement.LocalResource {
         public static string MsgDeleteLog {
             get {
                 return ResourceManager.GetString("MsgDeleteLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обязательное название компании.
+        /// </summary>
+        public static string MsgMandatoryCompanyName {
+            get {
+                return ResourceManager.GetString("MsgMandatoryCompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обязательное Контактное лицо.
+        /// </summary>
+        public static string MsgMandatoryContact {
+            get {
+                return ResourceManager.GetString("MsgMandatoryContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обязательное имя клиента.
+        /// </summary>
+        public static string MsgMandatoryName {
+            get {
+                return ResourceManager.GetString("MsgMandatoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Обязательная фамилия клиента.
+        /// </summary>
+        public static string MsgMandatorySurname {
+            get {
+                return ResourceManager.GetString("MsgMandatorySurname", resourceCulture);
             }
         }
         

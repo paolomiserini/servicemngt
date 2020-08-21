@@ -41,7 +41,8 @@
                                 Управление данными
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @Html.ActionLink("Клиенты", "Index", "Client", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Клиенты Физическое лицо", "Index", "Client", new { area = "" }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Клиенты Юридическое лицо", "Index_yur", "Client", new { area = "" }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("Торгующие организации", "Index", "Organizations", new { area = "" }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("Мастера", "Index", "Tecnician", new { area = "" }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("Детали", "Index", "Sparepart", new { area = "" }, new { @class = "dropdown-item" })

@@ -1,23 +1,21 @@
 ﻿@model PagedList.IPagedList<ServiceManagement.Models.Client>
 @using PagedList.Mvc;
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h3>Клиент Физическое лицо</h3>
+<h3>
+    Клиент Юридическое лицо
+</h3>
 
 <p>
-    @Html.ActionLink(" ", "Create", "Client", new { clientType = Common.PHISICAL }, new { @class = "btn btn-primary fa fa-plus" })
+    @Html.ActionLink(" ", "Create", "Client", new { clientType = Common.JURIDIC }, new { @class = "btn btn-primary fa fa-plus" })
 </p>
 
 @{string name = @ViewBag.Name;}
-@{string surname = @ViewBag.Surname;}
 @{string findby = @ViewBag.FindBy;}
 
 @{bool firstrecord = true;}
 
-@using (Html.BeginForm("Index", "Client", FormMethod.Get))
+@using (Html.BeginForm("Index_yur", "Client", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
     <div class="form-inline">
@@ -41,16 +39,16 @@
                                 @Html.DisplayNameFor(model => item.ClientType.TypeDescription)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => item.Name)
+                                @Html.DisplayNameFor(model => item.CompanyType.TypeDescription)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => item.Surname)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => item.Patronimic)
+                                @Html.DisplayNameFor(model => item.CompanyName)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => item.Telephone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.ContactPerson)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => item.ExtraInfo)
@@ -58,7 +56,6 @@
                             <th></th>
                         </tr>
                     </thead>
-
                 }
                 <tdata>
                     @{string _color = "table-default"; }
@@ -76,16 +73,16 @@
                             @Html.DisplayFor(modelItem => item.ClientType.TypeDescription)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.CompanyType.TypeDescription)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Surname)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Patronimic)
+                            @Html.DisplayFor(modelItem => item.CompanyName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Telephone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactPerson)
                         </td>
                         <td>
                             @Html.TextAreaFor(modelItem => item.ExtraInfo, 3, 3, new { @class = "form-control", @disabled = "disabled" })
@@ -107,7 +104,7 @@
         <br />
         Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        @Html.PagedListPager(Model, page => Url.Action("Index_yur", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
     </div>
 
