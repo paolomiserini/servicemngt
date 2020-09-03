@@ -7,6 +7,8 @@ namespace ServiceManagement.Models
     {
         public int id { get; set; }
 
+        public int TecnicianID { get; set; }
+
         [Required]
         public string Username { get; set; }
 

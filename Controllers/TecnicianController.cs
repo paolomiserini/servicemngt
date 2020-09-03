@@ -111,6 +111,29 @@ namespace ServiceManagement.Controllers
             {
                 db.Tecnicians.Add(tecnician);
                 db.SaveChanges();
+
+                // Inserisco una entry nella tabella user per le login e le password
+                int NewTecnicianId = tecnician.ID;
+                // Create user for new student with userid and password
+                User newUser = new User();
+                Common.UserLoginOption userLoginOption = new Common.UserLoginOption();
+                userLoginOption = Common.UserGenerator.LoginOption(tecnician.Name, tecnician.Surname, null);
+
+                if (userLoginOption.IsOk)
+                {
+                    newUser.TecnicianID = NewTecnicianId;
+                    newUser.Password = userLoginOption.Password;
+                    newUser.UserIsActive = true;
+                    newUser.Username = userLoginOption.Username;
+                    newUser.UserType = Common.MASTER;
+
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
+                }
+                // Msg to User
+                TempData["ErrorType"] = Common.INFORMATION;
+                TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk") + " [" + userLoginOption.ClearPassword + "]";
+
                 return RedirectToAction("Index");
             }
 

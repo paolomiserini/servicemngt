@@ -125,8 +125,8 @@ namespace ServiceManagement.Controllers
             }
 
             // Prendo la stringa dalla resource
-            string strTranslated = Common.StringFromResource.Translation("Name");
-            ViewBag.Name = strTranslated;
+            string strTranslated = Common.StringFromResource.Translation("CompanyType");
+            ViewBag.CompanyTypeTxtx = strTranslated;
 
             strTranslated = Common.StringFromResource.Translation("FindByCompanyName");
             ViewBag.FindBy = strTranslated;

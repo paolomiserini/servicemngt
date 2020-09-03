@@ -62,37 +62,37 @@
             </div>
         </nav>
     }
+    <br />
 
-        <div class="container body-content">
-            @if (TempData["GenericError"] != null)
-            {
-                if (TempData["ErrorType"].ToString() == Common.INFORMATION)
-                {
-                    <div class="alert alert-info" role="alert">
-                        @Html.Raw(TempData["GenericError"])
-                    </div>
-                }
-                if (TempData["ErrorType"].ToString() == Common.WARNING)
-                {
-                    <div class="alert alert-warning" role="alert">
-                        @Html.Raw(TempData["GenericError"])
-                    </div>
-                }
-                if (TempData["ErrorType"].ToString() == Common.ERROR)
-                {
-                    <div class="alert alert-danger" role="alert">
-                        @Html.Raw(TempData["GenericError"])
-                    </div>
-                }
-            }
+<div class="container">
+    @if (TempData["GenericError"] != null)
+    {
+        if (TempData["ErrorType"].ToString() == Common.INFORMATION)
+        {
+            <div class="alert alert-info" role="alert">
+                @Html.Raw(TempData["GenericError"])
+            </div>
+        }
+        if (TempData["ErrorType"].ToString() == Common.WARNING)
+        {
+            <div class="alert alert-warning" role="alert">
+                @Html.Raw(TempData["GenericError"])
+            </div>
+        }
+        if (TempData["ErrorType"].ToString() == Common.ERROR)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.Raw(TempData["GenericError"])
+            </div>
+        }
+    }
+        @RenderBody()
 
-            @RenderBody()
-
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - ООО Стройсантехсервис, Геленджик</p>
-            </footer>
-        </div>
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - ООО Стройсантехсервис, Геленджик</p>
+    </footer>
+</div>
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")

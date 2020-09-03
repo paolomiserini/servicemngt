@@ -16,11 +16,10 @@ namespace ServiceManagement
     {
         #region Application Constants
         // User types
-        public const string DIRECTOR = "DIR";
+        public const string OPERATOR = "OPE";
+        public const string MASTER = "MAS";
+        public const string CLIENT = "CLI";
         public const string ADMINISTRATOR = "ADM";
-        public const string TEACHER = "TEC";
-        public const string STUDENT = "STD";
-        public const string PARENT = "PAR";
 
         // Log type
         public const string INFORMATION = "INFORMATION";
@@ -260,11 +259,12 @@ namespace ServiceManagement
                 RequiredUniqueChars = 4,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireNonAlphanumeric = false,
+                RequireNonAlphanumeric = true,
                 RequireUppercase = true
             };
 
-            string[] randomChars = new[] { "ABCDEFGHJKLMNOPQRSTUVWXYZ", "abcdefghijkmnopqrstuvwxyz", "0123456789", "!@$?_-" };
+            // string[] randomChars = new[] { "ABCDEFGHJKLMNOPQRSTUVWXYZ", "abcdefghijkmnopqrstuvwxyz", "0123456789", "!@$?_-" };
+            string[] randomChars = new[] { "ABCDEFGHJKLMNOPQRSTUVWXYZ", "ABCDEFGHJKLMNOPQRSTUVWXYZ", "0123456789", "0123456789" };
 
             Random rand = new Random(Environment.TickCount);
             List<char> chars = new List<char>();

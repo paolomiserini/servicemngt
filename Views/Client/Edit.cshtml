@@ -45,7 +45,7 @@
     @*@Html.LabelFor(model => model.CompanyTypeID, "CompanyTypeID", htmlAttributes: new { @class = "control-label col-md-2" })*@
     <label class="control-label col-md-6">@ViewBag.CompanyTypeTxt</label>
     <div class="col-md-10">
-        @Html.DropDownList("CompanyTypeID", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+        @Html.DropDownList("CompanyTypeID", null, htmlAttributes: new { @class = "form-control"})
         @Html.HiddenFor(model => model.CompanyTypeID)
         @Html.ValidationMessageFor(model => model.CompanyTypeID, "", new { @class = "text-danger" })
     </div>
