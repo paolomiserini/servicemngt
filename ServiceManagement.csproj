@@ -194,6 +194,10 @@
     <Compile Include="Migrations\202008260758384_user-changed.designer.cs">
       <DependentUpon>202008260758384_user-changed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011050903218_prodotti.cs" />
+    <Compile Include="Migrations\202011050903218_prodotti.designer.cs">
+      <DependentUpon>202011050903218_prodotti.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ClientAddress.cs" />
     <Compile Include="Models\Client.cs" />
@@ -438,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008260758384_user-changed.resx">
       <DependentUpon>202008260758384_user-changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011050903218_prodotti.resx">
+      <DependentUpon>202011050903218_prodotti.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

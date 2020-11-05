@@ -12,7 +12,8 @@ namespace ServiceManagement.Models
         public string ProductCode { get; set; }
         public string Model { get; set; }
         public string Serial { get; set; }
-        public virtual ICollection<ClientAddress> ClientAddresses { get; set; }
+       
+        public virtual ClientAddress ClientAddress { get; set; }
 
     }
 }

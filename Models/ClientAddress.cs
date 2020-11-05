@@ -18,7 +18,7 @@ namespace ServiceManagement.Models
         public string Apartment { get; set; }
         public string IndexCode { get; set; }
         public virtual Client Client { get; set; }
-        public virtual Product Product { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
 
     }
