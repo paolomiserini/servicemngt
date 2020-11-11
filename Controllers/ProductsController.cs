@@ -16,9 +16,14 @@ namespace ServiceManagement.Controllers
         private ServiceManagementContext db = new ServiceManagementContext();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? idAddress)
         {
-            var products = db.Products.Include(p => p.ClientAddress);
+            if (idAddress == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.idAddress = idAddress;
+            var products = db.Products.Include(p => p.ClientAddress).Where(s => s.ClientAddressID == idAddress);
             return View(products.ToList());
         }
 
@@ -38,10 +43,16 @@ namespace ServiceManagement.Controllers
         }
 
         // GET: Products/Create
-        public ActionResult Create()
+        public ActionResult Create(int? idAddress)
         {
-            ViewBag.ClientAddressID = new SelectList(db.ClientAddresses, "ID", "Address");
-            return View();
+
+            if (idAddress == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product newProduct = new Product();
+            newProduct.ClientAddressID = (int)idAddress;
+            return View(newProduct);
         }
 
         // POST: Products/Create
@@ -49,16 +60,25 @@ namespace ServiceManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClientAddressID,Model,SerialNumber,ProductCode,idDeleted")] Product product)
+        public ActionResult Create([Bind(Include = "ID,ClientAddressID,Model,SerialNumber,ProductCode,isDeleted")] Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
+
+                //  seleziono il l'indirizzo dove attaccare i prodotti
+                ClientAddress RecOnWork = db.ClientAddresses.Where(s => s.ID == product.ClientAddressID).FirstOrDefault();
+                // rendo valido l'indirizzo selezionato
+                product.isDeleted = false;
+                RecOnWork.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                TempData["ErrorType"] = Common.INFORMATION;
+                TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
+                return RedirectToAction("Index", new { idAddress = product.ClientAddressID });
+
             }
 
-            ViewBag.ClientAddressID = new SelectList(db.ClientAddresses, "ID", "Address", product.ClientAddressID);
             return View(product);
         }
 
@@ -83,7 +103,7 @@ namespace ServiceManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ClientAddressID,Model,SerialNumber,ProductCode,idDeleted")] Product product)
+        public ActionResult Edit([Bind(Include = "ID,ClientAddressID,Model,SerialNumber,ProductCode,isDeleted")] Product product)
         {
             if (ModelState.IsValid)
             {

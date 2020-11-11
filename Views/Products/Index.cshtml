@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<ServiceManagement.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Product Index";
+    int idAddress = @ViewBag.idAddress;
+
 }
 
-<h2>Index</h2>
+<h3>Инвентарь</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(" ", "Create", "Products", new { idAddress = idAddress }, new { @class = "btn btn-primary fa fa-plus" })
 </p>
+
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ClientAddress.Address)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Model)
         </th>
@@ -23,17 +23,12 @@
         <th>
             @Html.DisplayNameFor(model => model.ProductCode)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.idDeleted)
-        </th>
+ 
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClientAddress.Address)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Model)
         </td>
@@ -44,12 +39,12 @@
             @Html.DisplayFor(modelItem => item.ProductCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.idDeleted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @if (!item.isDeleted)
+            {
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
+
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
+            }
         </td>
     </tr>
 }

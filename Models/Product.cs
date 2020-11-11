@@ -24,7 +24,7 @@ namespace ServiceManagement.Models
         [Display(Name = "ProductCode", ResourceType = typeof(LocalResource.Resource))]
         public string ProductCode { get; set; }
         
-        public bool idDeleted { get; set; }
+        public bool isDeleted { get; set; }
         public virtual ClientAddress ClientAddress { get; set; }
 
     }

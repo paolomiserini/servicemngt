@@ -69,6 +69,8 @@
                 <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
 
                 <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
+                
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Index","Products", new { idAddress = item.ID })" title="изделие"><i class="fa fa-fire"></i></a>
             }
         </td>
     </tr>

@@ -216,6 +216,10 @@
     <Compile Include="Migrations\202011110926059_aggiunti-lunghezze.designer.cs">
       <DependentUpon>202011110926059_aggiunti-lunghezze.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011111154579_corretto-isdeleted-flag.cs" />
+    <Compile Include="Migrations\202011111154579_corretto-isdeleted-flag.designer.cs">
+      <DependentUpon>202011111154579_corretto-isdeleted-flag.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ClientAddress.cs" />
     <Compile Include="Models\Client.cs" />
@@ -484,6 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011110926059_aggiunti-lunghezze.resx">
       <DependentUpon>202011110926059_aggiunti-lunghezze.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011111154579_corretto-isdeleted-flag.resx">
+      <DependentUpon>202011111154579_corretto-isdeleted-flag.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
