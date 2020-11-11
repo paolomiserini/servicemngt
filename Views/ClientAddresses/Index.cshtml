@@ -1,0 +1,79 @@
+﻿@model IEnumerable<ServiceManagement.Models.ClientAddress>
+
+@{
+    ViewBag.Title = "Index";
+    int idClient = @ViewBag.idClient;
+}
+
+<h3>Список адресов</h3>
+
+<p>
+    @Html.ActionLink(" ", "Create", "ClientAddresses", new { idClient = idClient }, new { @class = "btn btn-primary fa fa-plus" })
+</p>
+
+<table class="table table-sm">
+    <thead>
+        <tr class="table-active">
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Building)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apartment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndexCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        string cssClass = "";
+        if (item.isDeleted)
+        {
+            cssClass = "table-danger";
+        }
+<tdata>
+    <tr class=@cssClass>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Region)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Building)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apartment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IndexCode)
+        </td>
+        <td>
+            @if (!item.isDeleted)
+            {
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
+
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
+            }
+        </td>
+    </tr>
+</tdata>
+    }
+
+</table>
+

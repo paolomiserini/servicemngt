@@ -323,6 +323,8 @@ namespace ServiceManagement.Controllers
             Client client = db.Clients.Include(c => c.ClientType).Where(s => s.ID == id).FirstOrDefault();
             client.IsDeleted = true;
             db.SaveChanges();
+            TempData["ErrorType"] = Common.INFORMATION;
+            TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
 
             if (client.ClientType.TypeCode ==  Common.PHISICAL)
             {

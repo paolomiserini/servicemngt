@@ -1,0 +1,74 @@
+﻿@model ServiceManagement.Models.ClientAddress
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>удалить адрес клиента</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Building)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Building)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apartment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apartment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IndexCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IndexCode)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-trash fa-2x"></i></button>
+                @Html.ActionLink(" ", "Index", "ClientAddresses", new {idClient = Model.ClientID }, new { @class = "btn btn-primary fa fa-sign-out fa-2x" })
+            </div>
+        </div>
+    }
+</div>

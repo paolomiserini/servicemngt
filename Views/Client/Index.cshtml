@@ -28,7 +28,7 @@
     <br />
 
     <div>
-        <table class="table table-striped table-sm">
+        <table class="table  table-sm">
             @foreach (var item in Model)
             {
                 if (firstrecord)
@@ -37,9 +37,6 @@
                     <caption>Список клиентов</caption>
                     <thead>
                         <tr class="table-active">
-                            <th>
-                                @Html.DisplayNameFor(model => item.ClientType.TypeDescription)
-                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => item.Name)
                             </th>
@@ -73,9 +70,6 @@
                     }
                     <tr class="@_color">
                         <td>
-                            @Html.DisplayFor(modelItem => item.ClientType.TypeDescription)
-                        </td>
-                        <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
@@ -88,11 +82,12 @@
                             @Html.DisplayFor(modelItem => item.Telephone)
                         </td>
                         <td>
-                            @Html.TextAreaFor(modelItem => item.ExtraInfo, 3, 3, new { @class = "form-control", @disabled = "disabled" })
+                            @Html.TextAreaFor(modelItem => item.ExtraInfo, 2, 3, new { @class = "form-control", @disabled = "disabled" })
                         </td>
                         <td>
                             <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
                             <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.ID })" title="Детали"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Index","ClientAddresses", new { idClient = item.ID })" title="Адрес"><i class="fa fa-address-card"></i></a>
                             @if (!item.IsDeleted)
                             {
                                 <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>

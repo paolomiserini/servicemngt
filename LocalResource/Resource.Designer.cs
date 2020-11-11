@@ -61,6 +61,24 @@ namespace ServiceManagement.LocalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Адрес.
+        /// </summary>
+        public static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Квартира.
+        /// </summary>
+        public static string Apartment {
+            get {
+                return ResourceManager.GetString("Apartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка 400, (Bad Request). Пожалуйста, свяжитесь с вашим администратором..
         /// </summary>
         public static string BadRequest400 {
@@ -75,6 +93,24 @@ namespace ServiceManagement.LocalResource {
         public static string BadRequest404 {
             get {
                 return ResourceManager.GetString("BadRequest404", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Здание.
+        /// </summary>
+        public static string Building {
+            get {
+                return ResourceManager.GetString("Building", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Город.
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
             }
         }
         
@@ -151,6 +187,15 @@ namespace ServiceManagement.LocalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Индекс кода.
+        /// </summary>
+        public static string IndexCode {
+            get {
+                return ResourceManager.GetString("IndexCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Обновление данных.
         /// </summary>
         public static string LogDtUpd {
@@ -223,6 +268,15 @@ namespace ServiceManagement.LocalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Модель.
+        /// </summary>
+        public static string Model {
+            get {
+                return ResourceManager.GetString("Model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вы уверены, что хотите удалить это?.
         /// </summary>
         public static string MsgDeleteGeneric {
@@ -291,6 +345,33 @@ namespace ServiceManagement.LocalResource {
         public static string Patronimic {
             get {
                 return ResourceManager.GetString("Patronimic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Код Изделия.
+        /// </summary>
+        public static string ProductCode {
+            get {
+                return ResourceManager.GetString("ProductCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Область.
+        /// </summary>
+        public static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Серийный Номер.
+        /// </summary>
+        public static string SerialNumber {
+            get {
+                return ResourceManager.GetString("SerialNumber", resourceCulture);
             }
         }
         
