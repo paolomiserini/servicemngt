@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Product Index";
     int idAddress = @ViewBag.idAddress;
-
+    int idClient = ViewBag.idClient;
 }
 
 <h3>Инвентарь</h3>
@@ -12,41 +12,58 @@
     @Html.ActionLink(" ", "Create", "Products", new { idAddress = idAddress }, new { @class = "btn btn-primary fa fa-plus" })
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SerialNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductCode)
-        </th>
- 
-        <th></th>
-    </tr>
+<table class="table table-sm">
+    <thead>
+        <tr class="table-active">
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductCode)
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SerialNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductCode)
-        </td>
-        <td>
-            @if (!item.isDeleted)
-            {
-                <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
+            <th></th>
+        </tr>
+    </thead>
 
-                <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
-            }
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        string cssClass = "";
+        if (item.isDeleted)
+        {
+            cssClass = "table-danger";
+        }
+        <tdata>
+            <tr class=@cssClass>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductCode)
+                </td>
+                <td>
+                    @if (!item.isDeleted)
+                    {
+                        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
+
+                        <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
+                    }
+                </td>
+            </tr>
+        </tdata>
+    }
 
 </table>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-5">
+            @Html.ActionLink(" ", "Index", "ClientAddresses", new { idClient = idClient }, new { @class = "btn btn-primary fa fa-sign-out" })
+    </div>
+</div>
+
+

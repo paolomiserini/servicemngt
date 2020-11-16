@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Index";
     int idClient = @ViewBag.idClient;
+    string clientType = @ViewBag.clientType;
 }
 
 <h3>Список адресов</h3>
@@ -67,10 +68,8 @@
             @if (!item.isDeleted)
             {
                 <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
-
-                <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
-                
                 <a class="btn btn-primary btn-sm" href="@Url.Action("Index","Products", new { idAddress = item.ID })" title="изделие"><i class="fa fa-fire"></i></a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
             }
         </td>
     </tr>
@@ -78,4 +77,17 @@
     }
 
 </table>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-5">
+        @if (clientType == Common.PHISICAL)
+        {
+            @Html.ActionLink(" ", "Index", "Client", null, new { @class = "btn btn-primary fa fa-sign-out" })
+        }
+        else
+        {
+            @Html.ActionLink(" ", "Index_yur", "Client", null, new { @class = "btn btn-primary fa fa-sign-out" })
+        }
+    </div>
+</div>
 

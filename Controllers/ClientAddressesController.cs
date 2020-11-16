@@ -22,8 +22,14 @@ namespace ServiceManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            Client clientOnWOrk = db.Clients.Include(ct => ct.ClientType).Where(s => s.ID == idClient).FirstOrDefault();
+
+            ViewBag.clientType = clientOnWOrk.ClientType.TypeCode;
             ViewBag.idClient = idClient;
-            var clientAddresses = db.ClientAddresses.Include(c => c.Client).Where(c => c.ClientID == idClient);
+
+            var clientAddresses = db.ClientAddresses.Include(c => c.Client).Where(c => c.ClientID == idClient).OrderBy(c => c.isDeleted);
+
             return View(clientAddresses.ToList());
         }
 
@@ -34,6 +40,7 @@ namespace ServiceManagement.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ClientAddress newClientAddress = new ClientAddress();
             newClientAddress.ClientID = (int)idClient;
             return View(newClientAddress);
@@ -48,14 +55,16 @@ namespace ServiceManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                //  seleziono il cliente dove attaccare l'indirizzo
-                Client clientOnWOrk = db.Clients.Where(s => s.ID == clientAddress.ClientID).FirstOrDefault();
+                //  seleziono il cliente dove attaccare l'indirizzo includendo il client type
+                Client clientOnWOrk = db.Clients.Include(ct => ct.ClientType).Where(s => s.ID == clientAddress.ClientID).FirstOrDefault();
                 // rendo valido l'indirizzo selezionato
                 clientAddress.isDeleted = false;
                 clientOnWOrk.ClientAddresses.Add(clientAddress);
                 db.SaveChanges();
                 TempData["ErrorType"] = Common.INFORMATION;
                 TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
+                ViewBag.clientType = clientOnWOrk.ClientType.TypeCode;
 
                 return RedirectToAction("Index", new { idClient = clientAddress.ClientID });
             }
@@ -92,6 +101,10 @@ namespace ServiceManagement.Controllers
                 TempData["ErrorType"] = Common.INFORMATION;
                 TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
 
+                //  seleziono il cliente per il client type
+                Client clientOnWOrk = db.Clients.Include(ct => ct.ClientType).Where(s => s.ID == clientAddress.ClientID).FirstOrDefault();
+                ViewBag.clientType = clientOnWOrk.ClientType.TypeCode;
+
                 return RedirectToAction("Index", new { idClient = clientAddress.ClientID });
             }
             return View(clientAddress);
@@ -125,6 +138,10 @@ namespace ServiceManagement.Controllers
             db.SaveChanges();
             TempData["ErrorType"] = Common.INFORMATION;
             TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
+            //  seleziono il cliente per il client type
+            Client clientOnWOrk = db.Clients.Include(ct => ct.ClientType).Where(s => s.ID == clientAddress.ClientID).FirstOrDefault();
+            ViewBag.clientType = clientOnWOrk.ClientType.TypeCode;
 
             return RedirectToAction("Index", new { idClient = clientAddress.ClientID });
         }

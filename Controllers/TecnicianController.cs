@@ -166,6 +166,10 @@ namespace ServiceManagement.Controllers
             {
                 db.Entry(tecnician).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["ErrorType"] = Common.INFORMATION;
+                TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
                 return RedirectToAction("Index");
             }
             return View(tecnician);

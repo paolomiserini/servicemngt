@@ -220,6 +220,18 @@
     <Compile Include="Migrations\202011111154579_corretto-isdeleted-flag.designer.cs">
       <DependentUpon>202011111154579_corretto-isdeleted-flag.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011161239512_sparepart-table.cs" />
+    <Compile Include="Migrations\202011161239512_sparepart-table.designer.cs">
+      <DependentUpon>202011161239512_sparepart-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161250192_sparepart-table-isdeleted.cs" />
+    <Compile Include="Migrations\202011161250192_sparepart-table-isdeleted.designer.cs">
+      <DependentUpon>202011161250192_sparepart-table-isdeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161326344_sparepart-table-mandatory.cs" />
+    <Compile Include="Migrations\202011161326344_sparepart-table-mandatory.designer.cs">
+      <DependentUpon>202011161326344_sparepart-table-mandatory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ClientAddress.cs" />
     <Compile Include="Models\Client.cs" />
@@ -394,7 +406,6 @@
     <Content Include="Views\Tecnician\Index.cshtml" />
     <Content Include="Views\Sparepart\Create.cshtml" />
     <Content Include="Views\Sparepart\Delete.cshtml" />
-    <Content Include="Views\Sparepart\Details.cshtml" />
     <Content Include="Views\Sparepart\Edit.cshtml" />
     <Content Include="Views\Sparepart\Index.cshtml" />
     <Content Include="Views\RemontCard\Create.cshtml" />
@@ -418,7 +429,6 @@
     <Content Include="Views\ClientAddresses\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
@@ -491,6 +501,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011111154579_corretto-isdeleted-flag.resx">
       <DependentUpon>202011111154579_corretto-isdeleted-flag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161239512_sparepart-table.resx">
+      <DependentUpon>202011161239512_sparepart-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161250192_sparepart-table-isdeleted.resx">
+      <DependentUpon>202011161250192_sparepart-table-isdeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161326344_sparepart-table-mandatory.resx">
+      <DependentUpon>202011161326344_sparepart-table-mandatory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

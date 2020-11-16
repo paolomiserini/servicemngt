@@ -87,7 +87,7 @@
                         <td>
                             <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
                             <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.ID })" title="Детали"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-primary btn-sm" href="@Url.Action("Index","ClientAddresses", new { idClient = item.ID })" title="Адрес"><i class="fa fa-address-card"></i></a>
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "ClientAddresses", new { idClient = item.ID } )" title="Адрес"><i class="fa fa-address-card"></i></a>
                             @if (!item.IsDeleted)
                             {
                                 <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>

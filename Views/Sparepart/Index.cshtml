@@ -1,45 +1,91 @@
-﻿@model IEnumerable<ServiceManagement.Models.Sparepart>
+﻿@model PagedList.IPagedList<ServiceManagement.Models.Sparepart>
+@using PagedList.Mvc;
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Index Spare parts";
 }
 
-<h2>Index</h2>
+<h3>Запчасти</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(" ", "Create", "Sparepart", null, new { @class = "btn btn-primary fa fa-plus" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PartCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PartDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PartPrice)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PartCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PartDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PartPrice)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+@{string partcode = @ViewBag.PartCode;}
+@{string partdescription = @ViewBag.PartDescription;}
+@{string findby = @ViewBag.FindBy;}
+
+@{bool firstrecord = true;}
+
+@using (Html.BeginForm("Index", "Sparepart", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-inline">
+        @findby :&nbsp; @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control form-control-sm" })
+        <input type="submit" value="Поиск" class="btn btn-primary btn-sm" />
+    </div>
+    <br />
+
+    <div>
+
+        <table class="table table-sm">
+            @foreach (var item in Model)
+            {
+                if (firstrecord)
+                {
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.ActionLink(partcode, "Index", new { sortOrder = ViewBag.PartCodeSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.ActionLink(partdescription, "Index", new { sortOrder = ViewBag.PartDescriptionSortParm, currentFilter = ViewBag.CurrentFilter })
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.PartPrice)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    firstrecord = false;
+
+                }
+                    <tdata>
+                        @{string _color = "table-default"; }
+
+                        @if (item.isDeleted)
+                        {
+                            _color = "table-danger";
+                        }
+                        else
+                        {
+                            _color = "table-default";
+                        }
+                        <tr class="@_color">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PartCode)
+                            </td>
+                            <td>
+                                @Html.TextAreaFor(modelItem => item.PartDescription, 2, 3, new { @class = "form-control", @disabled = "disabled" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PartPrice)  <i class="fa fa-ruble"></i>
+                            </td>
+                            <td>
+                                @if (!item.isDeleted)
+                                {
+                                    <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.ID })" title="Изменить"><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.ID })" title="Удалить"><i class="fa fa-trash"></i></a>
+                                }
+                            </td>
+                        </tr>
+                    </tdata>
+            }
+        </table>
+        <br />
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
 }
-
-</table>

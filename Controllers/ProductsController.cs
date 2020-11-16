@@ -23,26 +23,15 @@ namespace ServiceManagement.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ViewBag.idAddress = idAddress;
-            var products = db.Products.Include(p => p.ClientAddress).Where(s => s.ClientAddressID == idAddress);
+            var products = db.Products.Include(p => p.ClientAddress).Where(s => s.ClientAddressID == idAddress).OrderBy(p => p.isDeleted);
+
+            ClientAddress clientAddress = db.ClientAddresses.Where(ca => ca.ID == idAddress).FirstOrDefault();
+            ViewBag.idClient = clientAddress.ClientID;
+
             return View(products.ToList());
         }
 
-        // GET: Products/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
-
-        // GET: Products/Create
+         // GET: Products/Create
         public ActionResult Create(int? idAddress)
         {
 
@@ -65,7 +54,7 @@ namespace ServiceManagement.Controllers
             if (ModelState.IsValid)
             {
 
-                //  seleziono il l'indirizzo dove attaccare i prodotti
+                //  seleziono l'indirizzo dove attaccare i prodotti. Ad un indirizzo possono essere presenti piu' prodotti
                 ClientAddress RecOnWork = db.ClientAddresses.Where(s => s.ID == product.ClientAddressID).FirstOrDefault();
                 // rendo valido l'indirizzo selezionato
                 product.isDeleted = false;
@@ -109,9 +98,12 @@ namespace ServiceManagement.Controllers
             {
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                TempData["ErrorType"] = Common.INFORMATION;
+                TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
+                return RedirectToAction("Index", new { idAddress = product.ClientAddressID });
             }
-            ViewBag.ClientAddressID = new SelectList(db.ClientAddresses, "ID", "Address", product.ClientAddressID);
+
             return View(product);
         }
 
@@ -127,6 +119,9 @@ namespace ServiceManagement.Controllers
             {
                 return HttpNotFound();
             }
+            TempData["ErrorType"] = Common.INFORMATION;
+            TempData["GenericError"] = Common.StringFromResource.Translation("MsgDeleteGeneric");
+
             return View(product);
         }
 
@@ -136,9 +131,13 @@ namespace ServiceManagement.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
-            db.Products.Remove(product);
+            product.isDeleted = true;
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            TempData["ErrorType"] = Common.INFORMATION;
+            TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
+            return RedirectToAction("Index", new { idAddress = product.ClientAddressID });
         }
 
         protected override void Dispose(bool disposing)

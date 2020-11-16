@@ -178,6 +178,15 @@ namespace ServiceManagement.LocalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Поиск по описанию детали.
+        /// </summary>
+        public static string FindByPart {
+            get {
+                return ResourceManager.GetString("FindByPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поиск по имени или фамилии.
         /// </summary>
         public static string FindByStaff {
@@ -336,6 +345,42 @@ namespace ServiceManagement.LocalResource {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Формат номера должен быть 9999999999,99.
+        /// </summary>
+        public static string NumFormat {
+            get {
+                return ResourceManager.GetString("NumFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Код Детали.
+        /// </summary>
+        public static string PartCode {
+            get {
+                return ResourceManager.GetString("PartCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Описание Детали.
+        /// </summary>
+        public static string PartDescription {
+            get {
+                return ResourceManager.GetString("PartDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цена Часть.
+        /// </summary>
+        public static string PartPrice {
+            get {
+                return ResourceManager.GetString("PartPrice", resourceCulture);
             }
         }
         

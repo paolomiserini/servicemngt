@@ -107,13 +107,13 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink(" ", "Edit", "Client", new { id = Model.ID }, new { @class = "btn btn-primary fa fa-edit fa-2x" })
+    @Html.ActionLink(" ", "Edit", "Client", new { id = Model.ID }, new { @class = "btn btn-primary fa fa-edit" })
     @if (Model.ClientType.TypeCode == Common.PHISICAL)
     {
-        @Html.ActionLink(" ", "Index", "Client", null, new { @class = "btn btn-primary fa fa-sign-out fa-2x" })
+        @Html.ActionLink(" ", "Index", "Client", null, new { @class = "btn btn-primary fa fa-sign-out" })
     }
     else
     {
-        @Html.ActionLink(" ", "Index_yur", "Client", null, new { @class = "btn btn-primary fa fa-sign-out fa-2x" })
+        @Html.ActionLink(" ", "Index_yur", "Client", null, new { @class = "btn btn-primary fa fa-sign-out" })
     }
 </p>

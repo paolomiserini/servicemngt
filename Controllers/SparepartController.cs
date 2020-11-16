@@ -6,34 +6,75 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using ServiceManagement.DAL;
 using ServiceManagement.Models;
 
 namespace ServiceManagement.Controllers
 {
-    public class SparepartController : Controller
+    public class SparepartController : AuthenticationController
     {
         private ServiceManagementContext db = new ServiceManagementContext();
 
         // GET: Sparepart
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.Spareparts.ToList());
-        }
+            // parametro di sort corrente
+            ViewBag.CurrentSort = sortOrder;
 
-        // GET: Sparepart/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            // parametri del sort passati come viewbag
+            ViewBag.PartCodeSortParm = String.IsNullOrEmpty(sortOrder) ? "partcode_desc" : "";
+            ViewBag.PartDescriptionSortParm = String.IsNullOrEmpty(sortOrder) ? "partdescription_desc" : "";
+            // codice per paginazione
+            if (searchString != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                page = 1;
             }
-            Sparepart sparepart = db.Spareparts.Find(id);
-            if (sparepart == null)
+            else
             {
-                return HttpNotFound();
+                searchString = currentFilter;
             }
-            return View(sparepart);
+
+            // parametro di filtro corrente
+            ViewBag.CurrentFilter = searchString;
+
+            // accesso al database prelevo lista dati da ordinare o ricercare
+            // la variabile utilizzata e' generica per un copia incolla
+            var items_list = db.Spareparts.ToList().AsQueryable();
+            
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items_list = items_list.Where(s => s.PartCode.Contains(searchString)
+                                       || s.PartDescription.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "partcode_desc":
+                    items_list = items_list.OrderByDescending(s => s.PartCode);
+                    break;
+                case "partdescription_desc":
+                    items_list = items_list.OrderByDescending(s => s.PartDescription);
+                    break;
+                default:
+                    items_list = items_list.OrderBy(s => s.PartDescription);
+                    break;
+            }
+
+            // Prendo la stringa dalla resource
+            string strTranslated = Common.StringFromResource.Translation("PartCode");
+            ViewBag.PartCode = strTranslated;
+
+            strTranslated = Common.StringFromResource.Translation("PartDescription");
+            ViewBag.PartDescription = strTranslated;
+
+            strTranslated = Common.StringFromResource.Translation("FindByPart");
+            ViewBag.FindBy = strTranslated;
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(items_list.ToPagedList(pageNumber, pageSize));
+
         }
 
         // GET: Sparepart/Create
@@ -51,8 +92,13 @@ namespace ServiceManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                sparepart.isDeleted = false;
                 db.Spareparts.Add(sparepart);
                 db.SaveChanges();
+
+                TempData["ErrorType"] = Common.INFORMATION;
+                TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
                 return RedirectToAction("Index");
             }
 
@@ -85,6 +131,9 @@ namespace ServiceManagement.Controllers
             {
                 db.Entry(sparepart).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["ErrorType"] = Common.INFORMATION;
+                TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
                 return RedirectToAction("Index");
             }
             return View(sparepart);
@@ -102,6 +151,9 @@ namespace ServiceManagement.Controllers
             {
                 return HttpNotFound();
             }
+            TempData["ErrorType"] = Common.INFORMATION;
+            TempData["GenericError"] = Common.StringFromResource.Translation("MsgDeleteGeneric");
+
             return View(sparepart);
         }
 
@@ -111,8 +163,11 @@ namespace ServiceManagement.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Sparepart sparepart = db.Spareparts.Find(id);
-            db.Spareparts.Remove(sparepart);
+            sparepart.isDeleted = true;
             db.SaveChanges();
+            TempData["ErrorType"] = Common.INFORMATION;
+            TempData["GenericError"] = Common.StringFromResource.Translation("DoneOk");
+
             return RedirectToAction("Index");
         }
 
