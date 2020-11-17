@@ -1,0 +1,135 @@
+﻿@model IEnumerable<ServiceManagement.Models.RemontCard>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tecnicianid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddressId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RemontCardLongId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtClientCall)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtEndWork)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtMasterTook)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtLastUpdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserLastUpdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequestState)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientProblemDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OfficeProblemDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupervisorAdditionalNotes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoNeedSpareParts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Warranty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdditionalAmount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tecnicianid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddressId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RemontCardLongId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DtClientCall)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DtEndWork)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DtMasterTook)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DtLastUpdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserLastUpdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestState)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientProblemDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OfficeProblemDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupervisorAdditionalNotes)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoNeedSpareParts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Warranty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdditionalAmount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RemontCardID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RemontCardID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RemontCardID })
+        </td>
+    </tr>
+}
+
+</table>

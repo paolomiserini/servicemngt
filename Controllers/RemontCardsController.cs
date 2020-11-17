@@ -11,18 +11,18 @@ using ServiceManagement.Models;
 
 namespace ServiceManagement.Controllers
 {
-    public class RemontCardController : Controller
+    public class RemontCardsController : Controller
     {
         private ServiceManagementContext db = new ServiceManagementContext();
 
-        // GET: RemontCard
+        // GET: RemontCards
         public ActionResult Index()
         {
-            var remontCards = db.RemontCards.Include(r => r.Tecnician);
+            var remontCards = db.RemontCards.Include(r => r.Client);
             return View(remontCards.ToList());
         }
 
-        // GET: RemontCard/Details/5
+        // GET: RemontCards/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,19 +37,19 @@ namespace ServiceManagement.Controllers
             return View(remontCard);
         }
 
-        // GET: RemontCard/Create
+        // GET: RemontCards/Create
         public ActionResult Create()
         {
-            ViewBag.TecnicianID = new SelectList(db.Tecnicians, "ID", "Name");
+            ViewBag.ClientId = new SelectList(db.Clients, "ID", "Name");
             return View();
         }
 
-        // POST: RemontCard/Create
+        // POST: RemontCards/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RemontCardID,TecnicianID,ClientCall,SolutionDate,ProblemDescription,AdditionalNote,NoNeedSpareParts,Warranty,TypeOfWork,ProductLocation,Amount,AdditionalAmount")] RemontCard remontCard)
+        public ActionResult Create([Bind(Include = "RemontCardID,Tecnicianid,ClientId,AddressId,ProductId,RemontCardLongId,DtClientCall,DtEndWork,DtMasterTook,DtLastUpdate,UserLastUpdate,RequestState,ClientProblemDescription,OfficeProblemDescription,SupervisorAdditionalNotes,NoNeedSpareParts,Warranty,Amount,AdditionalAmount")] RemontCard remontCard)
         {
             if (ModelState.IsValid)
             {
@@ -58,11 +58,11 @@ namespace ServiceManagement.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TecnicianID = new SelectList(db.Tecnicians, "ID", "Name", remontCard.TecnicianID);
+            ViewBag.ClientId = new SelectList(db.Clients, "ID", "Name", remontCard.ClientId);
             return View(remontCard);
         }
 
-        // GET: RemontCard/Edit/5
+        // GET: RemontCards/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,16 +74,16 @@ namespace ServiceManagement.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TecnicianID = new SelectList(db.Tecnicians, "ID", "Name", remontCard.TecnicianID);
+            ViewBag.ClientId = new SelectList(db.Clients, "ID", "Name", remontCard.ClientId);
             return View(remontCard);
         }
 
-        // POST: RemontCard/Edit/5
+        // POST: RemontCards/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RemontCardID,TecnicianID,ClientCall,SolutionDate,ProblemDescription,AdditionalNote,NoNeedSpareParts,Warranty,TypeOfWork,ProductLocation,Amount,AdditionalAmount")] RemontCard remontCard)
+        public ActionResult Edit([Bind(Include = "RemontCardID,Tecnicianid,ClientId,AddressId,ProductId,RemontCardLongId,DtClientCall,DtEndWork,DtMasterTook,DtLastUpdate,UserLastUpdate,RequestState,ClientProblemDescription,OfficeProblemDescription,SupervisorAdditionalNotes,NoNeedSpareParts,Warranty,Amount,AdditionalAmount")] RemontCard remontCard)
         {
             if (ModelState.IsValid)
             {
@@ -91,11 +91,11 @@ namespace ServiceManagement.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TecnicianID = new SelectList(db.Tecnicians, "ID", "Name", remontCard.TecnicianID);
+            ViewBag.ClientId = new SelectList(db.Clients, "ID", "Name", remontCard.ClientId);
             return View(remontCard);
         }
 
-        // GET: RemontCard/Delete/5
+        // GET: RemontCards/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +110,7 @@ namespace ServiceManagement.Controllers
             return View(remontCard);
         }
 
-        // POST: RemontCard/Delete/5
+        // POST: RemontCards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
