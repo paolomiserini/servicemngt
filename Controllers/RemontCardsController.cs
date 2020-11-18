@@ -6,12 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using ServiceManagement.DAL;
 using ServiceManagement.Models;
+using ServiceManagement.ViewModels;
 
 namespace ServiceManagement.Controllers
 {
-    public class RemontCardsController : Controller
+    public class RemontCardsController : AuthenticationController
     {
         private ServiceManagementContext db = new ServiceManagementContext();
 
@@ -20,6 +22,110 @@ namespace ServiceManagement.Controllers
         {
             var remontCards = db.RemontCards.Include(r => r.Client);
             return View(remontCards.ToList());
+        }
+        
+        // Creazione della Remont Card : Primo step selezione del cliente
+        public ActionResult StepCliente(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+
+            // parametro di sort corrente
+            ViewBag.CurrentSort = sortOrder;
+
+            // parametri del sort passati come viewbag
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.SurNameSortParm = String.IsNullOrEmpty(sortOrder) ? "surname_desc" : "";
+
+
+            // codice per paginazione
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            // parametro di filtro corrente
+            ViewBag.CurrentFilter = searchString;
+
+            // accesso al database prelevo lista dati da ordinare o ricercare
+            // la variabile utilizzata e' generica per un copia incolla
+            var items_list = from s in db.Clients.Include(c => c.ClientType).Include(c => c.CompanyType)
+                             select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                items_list = items_list.Where(s => s.Name.Contains(searchString)
+                                       || s.Surname.Contains(searchString)
+                                       || s.CompanyName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    items_list = items_list.OrderByDescending(s => s.Name);
+                    break;
+                case "surname_desc":
+                    items_list = items_list.OrderByDescending(s => s.Surname);
+                    break;
+                default:
+                    items_list = items_list.OrderBy(s => s.Name);
+                    break;
+            }
+
+            // Prendo la stringa dalla resource
+            string strTranslated = Common.StringFromResource.Translation("Name");
+            ViewBag.Name = strTranslated;
+
+            strTranslated = Common.StringFromResource.Translation("Surname");
+            ViewBag.Surname = strTranslated;
+
+            strTranslated = Common.StringFromResource.Translation("FindByStaff");
+            ViewBag.FindBy = strTranslated;
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(items_list.ToPagedList(pageNumber, pageSize));
+        }
+
+        // Creazione della Remont Card : Secondo step selezione dell'indirizzo
+        public ActionResult StepAddressProduct(int idClient)
+        {
+            RemontCardSelProduct remontCardSelProducts = new RemontCardSelProduct();
+
+            remontCardSelProducts.idClient = idClient;
+
+            // accesso al database prelevo lista dati da ordinare o ricercare
+            // la variabile utilizzata e' generica per un copia incolla
+            var address_list = db.ClientAddresses.Where(ca => ca.ClientID == idClient && ca.isDeleted == false);
+
+            remontCardSelProducts.ClientAddresses = address_list;
+
+            return View("StepAddressProduct", remontCardSelProducts);
+
+        }
+
+        // Creazione della Remont Card : Terzo step selezione del prodotto
+        public ActionResult StepProduct(int idClient, int idAddress)
+        {
+            RemontCardSelProduct remontCardSelProducts = new RemontCardSelProduct();
+
+            remontCardSelProducts.idClient = idClient;
+
+            // accesso al database prelevo lista dati da ordinare o ricercare
+            // la variabile utilizzata e' generica per un copia incolla
+            var address_list = db.ClientAddresses.Where(ca => ca.ClientID == idClient && ca.isDeleted == false);
+
+            remontCardSelProducts.ClientAddresses = address_list;
+
+            var product_list = db.Products.Where(ca => ca.ClientAddressID == idAddress && ca.isDeleted ==  false);
+
+            remontCardSelProducts.Products = product_list;
+
+            return View("StepAddressProduct", remontCardSelProducts);
+
         }
 
         // GET: RemontCards/Details/5
@@ -38,10 +144,27 @@ namespace ServiceManagement.Controllers
         }
 
         // GET: RemontCards/Create
-        public ActionResult Create()
+        public ActionResult Create(int idCliente, int idAddress, int idProduct)
         {
-            ViewBag.ClientId = new SelectList(db.Clients, "ID", "Name");
-            return View();
+            // creo un nuovo oggetto remontcardview
+            RemontCardView remontCardView = new RemontCardView();
+
+            // creo unanuova remontcard
+            RemontCard remontCard = new RemontCard();
+
+            // Nella remontcard salvo i valori arrivati in input
+            remontCard.ClientId = idCliente;
+            remontCard.AddressId = idAddress;
+            remontCard.ProductId = idProduct;
+
+            // Carico i valori di cliente, indirizzo e prodotto
+            remontCardView.RemontCard = remontCard;
+            remontCardView.Client = db.Clients.Include(p => p.ClientType).Where(cl => cl.ID == idCliente).FirstOrDefault();
+            remontCardView.Address = db.ClientAddresses.Where(ad => ad.ID == idAddress).FirstOrDefault();
+            remontCardView.Product = db.Products.Where(p => p.ID == idProduct).FirstOrDefault();
+            remontCardView.StatusTypes = GetStatusTypes("");
+
+            return View(remontCardView);
         }
 
         // POST: RemontCards/Create
@@ -129,5 +252,51 @@ namespace ServiceManagement.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private IEnumerable<SelectListItem> GetStatusTypes(string ischecked)
+        {
+
+            // List of types of possible controls to apply during reconciliation
+
+            if (ischecked == "")
+            {
+                List<SelectListItem> checktypes = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "запрос вставлен", Value = Common.INSERITA },
+
+                    new SelectListItem { Text = "запрос принят", Value = Common.ACCETTATA },
+
+                    new SelectListItem { Text = "запрос в обработке", Value = Common.INLAVORAZIONE },
+
+                    new SelectListItem { Text = "запрос на запасные части", Value = Common.ATTESARICAMBIO },
+
+                    new SelectListItem { Text = "запрос разрешен", Value = Common.CHIUSA },
+
+                    new SelectListItem { Text = "запрос отклонен", Value = Common.RIFIUTATA }
+                };
+                return checktypes;
+
+            }
+            else
+            {
+                List<SelectListItem> checktypes = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "запрос вставлен", Value = Common.INSERITA, Selected = ischecked == Common.INSERITA },
+
+                    new SelectListItem { Text = "запрос принят", Value = Common.ACCETTATA, Selected = ischecked == Common.ACCETTATA },
+
+                    new SelectListItem { Text = "запрос в обработке", Value = Common.INLAVORAZIONE, Selected = ischecked == Common.INLAVORAZIONE  },
+
+                    new SelectListItem { Text = "запрос на запасные части", Value = Common.ATTESARICAMBIO, Selected = ischecked == Common.ATTESARICAMBIO },
+
+                    new SelectListItem { Text = "запрос разрешен", Value = Common.CHIUSA, Selected = ischecked == Common.CHIUSA  },
+
+                    new SelectListItem { Text = "запрос отклонен", Value = Common.RIFIUTATA, Selected = ischecked == Common.RIFIUTATA  }
+                };
+                return checktypes;
+
+            }
+        }
+
     }
 }

@@ -1,0 +1,130 @@
+﻿
+@model ServiceManagement.ViewModels.RemontCardSelProduct
+
+@{
+    ViewBag.Title = "Select address and product";
+}
+
+<h3>Выберите адрес и продукт</h3>
+
+
+@{bool firstrecord = true;}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.idClient)
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Список адресов</div>
+        <div class="panel-body">
+            <br />
+            <div>
+                <table class="table table-sm">
+                    @foreach (var item in Model.ClientAddresses)
+                    {
+                        if (firstrecord)
+                        {
+                            <thead>
+                                <tr class="table-active">
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Address)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.City)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => item.Region)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            firstrecord = false;
+
+                        }
+                        <tdata>
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.City)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Region)
+                                </td>
+                                <td align="center">
+                                    @Html.ActionLink(" ", "StepProduct", new { idClient = item.ClientID, idAddress = item.ID }, new { @class = "btn btn-primary fa fa-search" })
+                                </td>
+                            </tr>
+                        </tdata>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    firstrecord = true;
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Инвентарь</div>
+        <div class="panel-body">
+            <div>
+                <table class="table table-sm">
+                    @if (!Model.Empty)
+                    {
+
+                        foreach (var item in Model.Products)
+                        {
+                            if (firstrecord)
+                            {
+                                <thead>
+                                    <tr class="table-active">
+                                        <th>
+                                            @Html.DisplayNameFor(model => item.Model)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => item.SerialNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => item.ProductCode)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                firstrecord = false;
+
+                            }
+                            <tdata>
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Model)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SerialNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductCode)
+                                    </td>
+                                    <td align="center">
+                                        @Html.ActionLink(" ", "Create", new { idCliente = item.ClientAddress.ClientID, idAddress = item.ClientAddressID, idProduct = item.ID }, new { @class = "btn btn-primary fa fa-step-forward" })
+                                    </td>
+                                </tr>
+                            </tdata>
+                        }
+                    }
+
+                </table>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-5">
+            @Html.ActionLink(" ", "Index", "RemontCards", null, new { @class = "btn btn-primary fa fa-sign-out" })
+        </div>
+    </div>
+}

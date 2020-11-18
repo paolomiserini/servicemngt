@@ -261,6 +261,8 @@
     <Compile Include="Session\TypedSession.cs" />
     <Compile Include="Utility\Common.cs" />
     <Compile Include="Utility\Logger.cs" />
+    <Compile Include="ViewModels\RemontCardSelProduct.cs" />
+    <Compile Include="ViewModels\RemontCardView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -443,6 +445,8 @@
     <Content Include="Views\RemontCards\Details.cshtml" />
     <Content Include="Views\RemontCards\Edit.cshtml" />
     <Content Include="Views\RemontCards\Index.cshtml" />
+    <Content Include="Views\RemontCards\StepCliente.cshtml" />
+    <Content Include="Views\RemontCards\StepAddressProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

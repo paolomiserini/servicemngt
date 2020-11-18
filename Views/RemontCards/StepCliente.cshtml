@@ -1,0 +1,101 @@
+﻿@model PagedList.IPagedList<ServiceManagement.Models.Client>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Step Cliente";
+}
+
+<h3>Клиент</h3>
+
+
+@{string name = @ViewBag.Name;}
+@{string surname = @ViewBag.Surname;}
+@{string findby = @ViewBag.FindBy;}
+
+@{bool firstrecord = true;}
+
+@using (Html.BeginForm("StepCliente", "RemontCards", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-inline">
+        @findby :&nbsp; @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control form-control-sm" })
+        <input type="submit" value="Поиск" class="btn btn-primary btn-sm" />
+    </div>
+
+    <br />
+
+    <div>
+        <table class="table  table-sm">
+            @foreach (var item in Model)
+            {
+                if (firstrecord)
+                {
+                    firstrecord = false;
+                    <caption>Список клиентов</caption>
+                    <thead>
+                        <tr class="table-active">
+                            <th>
+                                Клиент
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.Telephone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => item.ExtraInfo)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                }
+                <tdata>
+                    @{string _color = "table-default";
+                        string _desc = "";}
+
+                    @if (item.IsDeleted)
+                    {
+                        _color = "table-danger";
+                    }
+                    else
+                    {
+                        _color = "table-default";
+                    }
+                    <tr class="@_color">
+                        @if (item.ClientType.TypeCode == Common.PHISICAL)
+                        {
+                             _desc = item.Name + " " + item.Surname + " " + item.Patronimic;
+                        }
+                        else
+                        {
+                             _desc = item.CompanyName;
+                        }
+
+                        <td>
+                            @_desc 
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telephone)
+                        </td>
+                        <td>
+                            @Html.TextAreaFor(modelItem => item.ExtraInfo, 2, 3, new { @class = "form-control", @disabled = "disabled" })
+                        </td>
+                        <td>
+                            @if (!item.IsDeleted)
+                            {
+                                <a class="btn btn-primary btn-sm" href="@Url.Action("StepAddressProduct", new { idClient = item.ID })" title=""><i class="fa fa-step-forward"></i></a>
+                            }
+                        </td>
+
+                    </tr>
+                </tdata>
+
+            }
+        </table>
+        <br />
+        Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+    </div>
+
+}

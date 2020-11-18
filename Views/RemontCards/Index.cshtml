@@ -4,13 +4,14 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Список Отчетов</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(" ", "StepCliente", "RemontCards", null, new { @class = "btn btn-primary fa fa-plus" })
 </p>
-<table class="table">
-    <tr>
+
+<table class="table table-sm">
+    <tr class="table-active">
         <th>
             @Html.DisplayNameFor(model => model.Client.Name)
         </th>
@@ -68,68 +69,69 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Client.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tecnicianid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddressId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RemontCardLongId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DtClientCall)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DtEndWork)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DtMasterTook)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DtLastUpdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserLastUpdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RequestState)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClientProblemDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OfficeProblemDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SupervisorAdditionalNotes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NoNeedSpareParts)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Warranty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdditionalAmount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RemontCardID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RemontCardID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RemontCardID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tecnicianid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AddressId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RemontCardLongId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtClientCall)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtEndWork)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtMasterTook)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DtLastUpdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserLastUpdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestState)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientProblemDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OfficeProblemDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupervisorAdditionalNotes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoNeedSpareParts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Warranty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdditionalAmount)
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", new { id = item.RemontCardID })" title="Изменить"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Details", new { id = item.RemontCardID })" title="Детали"><i class="fa fa-eye"></i></a>
+                <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", new { id = item.RemontCardID })" title="Удалить"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>
+    }
 
 </table>

@@ -30,6 +30,14 @@ namespace ServiceManagement
         public const string PHISICAL = "PHI";
         public const string JURIDIC = "YUR";
 
+        // Stato Richesta
+        public const string INSERITA = "INS";
+        public const string ACCETTATA = "ACC";
+        public const string INLAVORAZIONE = "INL";
+        public const string ATTESARICAMBIO = "ATR";
+        public const string CHIUSA = "CHI";
+        public const string RIFIUTATA = "RIF";
+
         #endregion
 
         public class StudentsDebts
