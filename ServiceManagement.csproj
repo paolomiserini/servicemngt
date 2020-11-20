@@ -244,6 +244,18 @@
     <Compile Include="Migrations\202011170752129_remontcard3.designer.cs">
       <DependentUpon>202011170752129_remontcard3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011200929024_daterequest.cs" />
+    <Compile Include="Migrations\202011200929024_daterequest.designer.cs">
+      <DependentUpon>202011200929024_daterequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011200938519_daterequestupd.cs" />
+    <Compile Include="Migrations\202011200938519_daterequestupd.designer.cs">
+      <DependentUpon>202011200938519_daterequestupd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011201055523_datetostringa.cs" />
+    <Compile Include="Migrations\202011201055523_datetostringa.designer.cs">
+      <DependentUpon>202011201055523_datetostringa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ClientAddress.cs" />
     <Compile Include="Models\Client.cs" />
@@ -535,6 +547,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011170752129_remontcard3.resx">
       <DependentUpon>202011170752129_remontcard3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011200929024_daterequest.resx">
+      <DependentUpon>202011200929024_daterequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011200938519_daterequestupd.resx">
+      <DependentUpon>202011200938519_daterequestupd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011201055523_datetostringa.resx">
+      <DependentUpon>202011201055523_datetostringa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

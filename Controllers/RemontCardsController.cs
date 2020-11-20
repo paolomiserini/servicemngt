@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using PagedList;
 using ServiceManagement.DAL;
 using ServiceManagement.Models;
+using ServiceManagement.Session;
 using ServiceManagement.ViewModels;
 
 namespace ServiceManagement.Controllers
@@ -157,11 +158,18 @@ namespace ServiceManagement.Controllers
             remontCard.AddressId = idAddress;
             remontCard.ProductId = idProduct;
 
-            // Carico i valori di cliente, indirizzo e prodotto
+            // Creo l'ID visibile all'utente
+            remontCard.RemontCardLongId = Common.GenerateRemontId.RemontIdGeneration(idCliente, Common.OFFICEGENERATED);
+
+            // Prelevo i dati di testata per il cliente
+
+            Common.ProductInfo productInfo = getProductInfo(idCliente, idAddress, idProduct);
+            
+            remontCardView.infoCliente = productInfo.infoClient;
+            remontCardView.infoAddress = productInfo.infoAddress;
+            remontCardView.infoProduct = productInfo.infoProduct;
+
             remontCardView.RemontCard = remontCard;
-            remontCardView.Client = db.Clients.Include(p => p.ClientType).Where(cl => cl.ID == idCliente).FirstOrDefault();
-            remontCardView.Address = db.ClientAddresses.Where(ad => ad.ID == idAddress).FirstOrDefault();
-            remontCardView.Product = db.Products.Where(p => p.ID == idProduct).FirstOrDefault();
             remontCardView.StatusTypes = GetStatusTypes("");
 
             return View(remontCardView);
@@ -172,17 +180,32 @@ namespace ServiceManagement.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RemontCardID,Tecnicianid,ClientId,AddressId,ProductId,RemontCardLongId,DtClientCall,DtEndWork,DtMasterTook,DtLastUpdate,UserLastUpdate,RequestState,ClientProblemDescription,OfficeProblemDescription,SupervisorAdditionalNotes,NoNeedSpareParts,Warranty,Amount,AdditionalAmount")] RemontCard remontCard)
+        //public ActionResult Create([Bind(Include = "RemontCardID,Tecnicianid,ClientId,AddressId,ProductId,RemontCardLongId,DtClientCall,DtEndWork,DtMasterTook,DtLastUpdate,UserLastUpdate,RequestState,ClientProblemDescription,OfficeProblemDescription,SupervisorAdditionalNotes,NoNeedSpareParts,Warranty,Amount,AdditionalAmount")] RemontCard remontCard, RemontCardView remontCardView)
+        public ActionResult Create(RemontCardView remontCardView)
         {
             if (ModelState.IsValid)
             {
-                db.RemontCards.Add(remontCard);
+                // imposto gli utlimi valori necessari
+                remontCardView.RemontCard.DtLastUpdate = DateTime.UtcNow;
+                remontCardView.RemontCard.UserLastUpdate = TypedSession.Current.LoggedUser.Username;
+
+                db.RemontCards.Add(remontCardView.RemontCard);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            // Prelevo i dati di testata per il cliente
 
-            ViewBag.ClientId = new SelectList(db.Clients, "ID", "Name", remontCard.ClientId);
-            return View(remontCard);
+            Common.ProductInfo productInfo = getProductInfo(remontCardView.RemontCard.ClientId, remontCardView.RemontCard.AddressId, remontCardView.RemontCard.ProductId);
+
+            remontCardView.infoCliente = productInfo.infoClient;
+            remontCardView.infoAddress = productInfo.infoAddress;
+            remontCardView.infoProduct = productInfo.infoProduct;
+
+            remontCardView.StatusTypeSelected = remontCardView.RemontCard.RequestState;
+
+            remontCardView.StatusTypes = GetStatusTypes(remontCardView.StatusTypeSelected);
+
+            return View(remontCardView);
         }
 
         // GET: RemontCards/Edit/5
@@ -251,6 +274,29 @@ namespace ServiceManagement.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private Common.ProductInfo getProductInfo(int idClient, int idAddress, int idProduct) 
+        {
+            Common.ProductInfo productInfo = new Common.ProductInfo();
+
+            Client client = db.Clients.Include(p => p.ClientType).Where(cl => cl.ID == idClient).FirstOrDefault();
+            ClientAddress address = db.ClientAddresses.Where(ad => ad.ID == idAddress).FirstOrDefault();
+            Product product = db.Products.Where(p => p.ID == idProduct).FirstOrDefault();
+
+            if (client.ClientType.TypeCode == Common.JURIDIC)
+            {
+                productInfo.infoClient = client.CompanyName;
+            }
+            else
+            {
+                productInfo.infoClient = client.Name + " " + client.Surname;
+            }
+
+            productInfo.infoAddress = address.Region + " " + address.City + " " + address.Address;
+            productInfo.infoProduct = product.Model;
+
+            return productInfo;
         }
 
         private IEnumerable<SelectListItem> GetStatusTypes(string ischecked)

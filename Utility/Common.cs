@@ -30,6 +30,10 @@ namespace ServiceManagement
         public const string PHISICAL = "PHI";
         public const string JURIDIC = "YUR";
 
+        // Generation Type
+        public const string OFFICEGENERATED = "O";
+        public const string CLIENTGENERATED = "C";
+
         // Stato Richesta
         public const string INSERITA = "INS";
         public const string ACCETTATA = "ACC";
@@ -40,15 +44,7 @@ namespace ServiceManagement
 
         #endregion
 
-        public class StudentsDebts
-        {
-            public int Id { get; set; }
-            public string StudentName { get; set; }
-            public string StudentSurname { get; set; }
-            public string SudentPhone { get; set; }
-            public int TotalDebt { get; set; }
-        }
-
+ 
         public class StringFromResource
         {
             public static string Translation(string resourceKey)
@@ -64,18 +60,7 @@ namespace ServiceManagement
             }
         }
 
-        public class SalaryStatus
-        {
-            public static List<string> ListOfSalaryStatus
-            {
-                get
-                {
-                    return new List<string> { "PAYED", "CALCULATED", "READY TO PAY" };
-                }
-            }
-        }
-
-        #region SerializationDeserializationFunctions
+         #region SerializationDeserializationFunctions
 
         public static string SerializeObject<T>(T item)
         {
@@ -138,6 +123,17 @@ namespace ServiceManagement
             }
         }
 
+        public class GenerateRemontId
+        {
+            public static string RemontIdGeneration(int idClient, string generationType)
+            {
+                string keyGenerated = "";
+                
+                keyGenerated = generationType + "-" + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString() + "-" + idClient.ToString();
+
+                return keyGenerated;
+            }
+        }
 
         public class EcryptDecrypt
         {
@@ -239,6 +235,12 @@ namespace ServiceManagement
             }
         }
 
+        public class ProductInfo
+        {
+            public string infoClient { get; set; }
+            public string infoAddress { get; set; }
+            public string infoProduct { get; set; }
+        }
         public class UserLoginOption
         {
             public string Username { get; set; }

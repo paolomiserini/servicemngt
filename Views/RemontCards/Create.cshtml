@@ -15,143 +15,146 @@
     string _infoaddress = "";
     string _infoproduct = "";
 
-    if (Model.Client.ClientType.TypeCode == Common.PHISICAL)
-    {
-        _infocliente = Model.Client.Name + " " + Model.Client.Surname;
-    }
-    else
-    {
-        _infocliente = Model.Client.CompanyName;
-    }
-    _infoaddress = Model.Address.Address + " " + Model.Address.City + " " + Model.Address.Region;
-    _infoproduct = Model.Product.Model;
 
-
+    _infocliente = Model.infoCliente;
+    _infoaddress = Model.infoAddress;
+    _infoproduct = Model.infoProduct;
 
     <div class="card">
         <h5 class="card-header bg-info">@_infocliente<br />@_infoaddress<br />@_infoproduct</h5>
     </div>
 
-<div class="form-horizontal">
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @Html.HiddenFor(model => model.RemontCard.UserLastUpdate)
-    @Html.HiddenFor(model => model.RemontCard.DtLastUpdate)
-    @Html.HiddenFor(model => model.RemontCard.ClientId)
-    @Html.HiddenFor(model => model.RemontCard.Tecnicianid)
-    @Html.HiddenFor(model => model.RemontCard.AddressId)
-    @Html.HiddenFor(model => model.RemontCard.ProductId)
+        @Html.HiddenFor(model => model.RemontCard.UserLastUpdate)
+        @Html.HiddenFor(model => model.RemontCard.DtLastUpdate)
+        @Html.HiddenFor(model => model.RemontCard.ClientId)
+        @Html.HiddenFor(model => model.RemontCard.Tecnicianid)
+        @Html.HiddenFor(model => model.RemontCard.AddressId)
+        @Html.HiddenFor(model => model.RemontCard.ProductId)
+        @Html.HiddenFor(model => model.RemontCard.SupervisorAdditionalNotes)
+        @Html.HiddenFor(model => model.RemontCard.ClientProblemDescription)
+        @Html.HiddenFor(model => model.RemontCard.RemontCardLongId)
+        @Html.HiddenFor(model => model.RemontCard.DtMasterTook)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.RemontCardLongId, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.RemontCardLongId, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.RemontCardLongId, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.DtClientCall, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.DtClientCall, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.DtClientCall, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.DtEndWork, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.DtEndWork, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.DtEndWork, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.DtMasterTook, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.DtMasterTook, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.DtMasterTook, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.RequestState, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-4">
-            @Html.DropDownListFor(model => model.StatusTypeSelected, Model.StatusTypes, "Selezionare una tipologia controllo", new { @class = "form-control" })
-
-            @Html.ValidationMessageFor(model => model.RemontCard.RequestState, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.ClientProblemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.ClientProblemDescription, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.ClientProblemDescription, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.OfficeProblemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.OfficeProblemDescription, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.OfficeProblemDescription, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.SupervisorAdditionalNotes, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.SupervisorAdditionalNotes, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.SupervisorAdditionalNotes, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.NoNeedSpareParts, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.RemontCard.NoNeedSpareParts)
-                @Html.ValidationMessageFor(model => model.RemontCard.NoNeedSpareParts, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.RemontCardLongId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RemontCard.RemontCardLongId, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.RemontCard.RemontCardLongId, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.Warranty, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.RemontCard.Warranty)
-                @Html.ValidationMessageFor(model => model.RemontCard.Warranty, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.RequestState, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.RemontCard.RequestState, Model.StatusTypes, "Selezionare una tipologia controllo", new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.RemontCard.RequestState, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
+        <hr />
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.Amount, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.Amount, "", new { @class = "text-danger" })
+        <div class="form-inline">
+            <div>
+                @Html.LabelFor(model => model.RemontCard.DtClientCall, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.RemontCard.DtClientCall, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RemontCard.DtClientCall, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.RemontCard.DtEndWork, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.RemontCard.DtEndWork, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RemontCard.DtEndWork, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                @Html.LabelFor(model => model.RemontCard.DtMasterTook, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.RemontCard.DtMasterTook, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RemontCard.DtMasterTook, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
         </div>
-    </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.ClientProblemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.RemontCard.ClientProblemDescription, 3, 1, new { @class = "form-control col-md-6", @disabled = "disabled" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.RemontCard.AdditionalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RemontCard.AdditionalAmount, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RemontCard.AdditionalAmount, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.RemontCard.ClientProblemDescription, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-5">
-            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
-            @Html.ActionLink(" ", "Index", "RemontCards", null, new { @class = "btn btn-primary fa fa-sign-out" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.SupervisorAdditionalNotes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.RemontCard.SupervisorAdditionalNotes, 3, 1, new { @class = "form-control col-md-6", @disabled = "disabled" })
+
+                @Html.ValidationMessageFor(model => model.RemontCard.SupervisorAdditionalNotes, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-</div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.OfficeProblemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.RemontCard.OfficeProblemDescription, 3, 1, new { @class = "form-control col-md-6" })
+                @Html.ValidationMessageFor(model => model.RemontCard.OfficeProblemDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.NoNeedSpareParts, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.RemontCard.NoNeedSpareParts)
+                    @Html.ValidationMessageFor(model => model.RemontCard.NoNeedSpareParts, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.Warranty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.RemontCard.Warranty)
+                    @Html.ValidationMessageFor(model => model.RemontCard.Warranty, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RemontCard.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RemontCard.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RemontCard.AdditionalAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RemontCard.AdditionalAmount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RemontCard.AdditionalAmount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                @Html.ActionLink(" ", "Index", "RemontCards", null, new { @class = "btn btn-primary fa fa-sign-out" })
+            </div>
+        </div>
+
+    </div>
 }
 
 @section Scripts {
